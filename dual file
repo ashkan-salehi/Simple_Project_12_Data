@@ -1,0 +1,54 @@
+#creating two dataframes for S&P500 and Russell2000
+sp500_all = df[df["is_sp500"] == 1].copy()
+russell_all = df[df["is_sp500"] == 0].copy()
+
+# plot the avreage stock price in 2025
+#vs. percentage of women in the board of directors
+
+plt.figure(figsize=(14, 7))
+# for Russel2000
+plt.scatter(
+    russell_all["pct_women_board"],
+    russell_all["avg_stock_price_2025_usd"],
+    color='#1f77b4',
+    s=50,
+    marker='o',
+    alpha=0.6,
+    edgecolors='k',
+    linewidth=0.5,
+    label='Russell 2000 (Blue Circles)'
+)
+
+# for S&P500
+plt.scatter(
+    sp500_all["pct_women_board"],
+    sp500_all["avg_stock_price_2025_usd"],
+    color='#2ca02c',
+    s=70,
+    marker='s',
+    alpha=0.85,
+    edgecolors='k',
+    linewidth=0.5,
+    label='S&P 500 (Green Squares)'
+)
+
+plt.xlim(0, 65)
+plt.ylim(0, max(df["avg_stock_price_2025_usd"]) * 1.05)
+
+
+plt.title("500-Company Dataset: Stock Price vs. Female Board Representation", fontsize=14, fontweight='bold', pad=15)
+plt.xlabel("Percentage of Female Board Directors (%)", fontsize=11)
+plt.ylabel("Average Stock Price 2025 (USD)", fontsize=11)
+
+
+plt.legend(
+    title="Index Categories",
+    fontsize=11,
+    title_fontsize=12,
+    frameon=True,
+    loc='upper left'
+)
+
+plt.grid(True, linestyle=':', alpha=0.6)
+plt.tight_layout()
+plt.show()
